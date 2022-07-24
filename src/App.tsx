@@ -1,12 +1,13 @@
 import React, { FC, ChangeEvent, useState } from 'react';
 import './App.css';
+import { ITask } from './Interfaces';
 
 const App: FC = () => {
   // Defined the type of the App component, which is a functional component
 
   const [task, setTask] = useState<string>(''); // Defined the type of this state, which is a string
   const [deadline, setDeadline] = useState<number>(0); // Defined the type of this state, which is a number
-  const [todo, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState<ITask[]>([]); // This state will be an ITask interfaces and also an array
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     // Defined the input and the output type of the function. If a function does not return any value then you can specify void as return type
@@ -15,6 +16,13 @@ const App: FC = () => {
     } else {
       setDeadline(Number(event.target.value)); // Defined the type of the setState input, which is number. If we don't set here the type, the function will return an error
     }
+  };
+
+  const addTask = (): void => {
+    // Create an object that follow the ITask interface type guidelines, necessary for the todoList state
+    const newTask = {taskName: task, deadline: deadline} 
+    // Add a task in the todoList to the old tasks
+    setTodoList([...todoList, newTask]);
   };
 
   return (
@@ -34,7 +42,7 @@ const App: FC = () => {
             name="deadline"
           ></input>
         </div>
-        <button>Add Task</button>
+        <button onClick={addTask}>Add Task</button>
       </div>
       <div className="todoList"></div>
     </div>
