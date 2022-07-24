@@ -20,9 +20,10 @@ const App: FC = () => {
 
   const addTask = (): void => {
     // Create an object that follow the ITask interface type guidelines, necessary for the todoList state
-    const newTask = {taskName: task, deadline: deadline} 
+    const newTask = { taskName: task, deadline: deadline };
     // Add a task in the todoList to the old tasks
     setTodoList([...todoList, newTask]);
+    console.log(todoList);
   };
 
   return (
@@ -34,12 +35,14 @@ const App: FC = () => {
             placeholder="Task..."
             onChange={handleChange}
             name="task"
+            value={task}
           ></input>
           <input
             type="number"
             placeholder="Deadline (in Days)..."
             onChange={handleChange}
             name="deadline"
+            value={deadline}
           ></input>
         </div>
         <button onClick={addTask}>Add Task</button>
